@@ -2,11 +2,12 @@
   const EXAMPLES = {
     abusive_content_removal: 'input_data/abusive/content_removal.ttl',
     abusive_unilateral_change: 'input_data/abusive/unilateral_change.ttl',
+    abusive_unilateral_termination: 'input_data/abusive/unilateral_termination.ttl',
     non_abusive_content_removal: 'input_data/non_abusive/content_removal.ttl',
     non_abusive_unilateral_change: 'input_data/non_abusive/unilateral_change.ttl',
   };
 
-  const RULE_FILES = ['rules/content_removal.n3', 'rules/unilateral_change.n3'];
+  const RULE_FILES = ['rules/content_removal.n3', 'rules/unilateral_change.n3', 'rules/unilateral_termination.n3'];
 
   async function fetchText(url) {
     const res = await fetch(url);
