@@ -4,7 +4,7 @@
 @prefix tosl: <https://w3id.org/tosl/> .
 @base <http://example.com> .
 
-:ContentRemovalAgreement a odrl:Agreement ;
+:Agreement a odrl:Agreement ;
     dcterms:title "Agreement with a user data removal term" ;
     :policyGraph {
         :PermissionDeleteUserData a odrl:Permission ;
@@ -12,4 +12,7 @@
             odrl:assignee :provider ;
             odrl:action tosl:remove ;
             odrl:target :userData .
+
+        :provider a tosl:Provider .
+        :userData a tosl:UserContent .
     } .

@@ -4,7 +4,7 @@
 @prefix tosl: <https://w3id.org/tosl/> .
 @base <http://example.com> .
 
-:UnilateralChangeAgreement a odrl:Agreement ;
+:Agreement a odrl:Agreement ;
     dcterms:title "Agreement with a pricing modification term" ;
     :policyGraph {
         :permissionChangePricing a odrl:Permission ;
@@ -12,4 +12,6 @@
             odrl:assignee :provider ;
             odrl:action odrl:modify;
             odrl:target :pricing .
+
+        :provider a tosl:Provider .
     } .

@@ -1,10 +1,12 @@
 (function () {
   const EXAMPLES = {
-    abusive: 'input_data/abusive/content_removal.ttl',
-    non_abusive: 'input_data/non_abusive/content_removal.ttl',
+    abusive_content_removal: 'input_data/abusive/content_removal.ttl',
+    abusive_unilateral_change: 'input_data/abusive/unilateral_change.ttl',
+    non_abusive_content_removal: 'input_data/non_abusive/content_removal.ttl',
+    non_abusive_unilateral_change: 'input_data/non_abusive/unilateral_change.ttl',
   };
 
-  const RULE_FILES = ['rules/content_removal.n3'];
+  const RULE_FILES = ['rules/content_removal.n3', 'rules/unilateral_change.n3'];
 
   async function fetchText(url) {
     const res = await fetch(url);
@@ -117,7 +119,7 @@
         riskOutput.textContent = cleanClosureN3;
 
         if (riskSummary) {
-          riskSummary.textContent = messages || "No potential risks detected in this term.";
+          riskSummary.textContent = messages || "No potential risks detected in this term. Review the input policy for any missing or incorrect statements.";
         }
 
         if (riskResult) {

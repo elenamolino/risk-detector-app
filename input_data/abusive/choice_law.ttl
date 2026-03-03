@@ -4,7 +4,7 @@
 @prefix tosl: <https://w3id.org/tosl/> .
 @base <http://example.com> .
 
-:ChoiceLawAgreement a odrl:Agreement ;
+:Agreement a odrl:Agreement ;
     dcterms:title "Agreement with litigation process governed by netherlandsLaw" ;
     tosl:onDispute :ChoiceLawLitigation ;
     :policyGraph {

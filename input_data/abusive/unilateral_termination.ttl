@@ -4,7 +4,7 @@
 @prefix tosl: <https://w3id.org/tosl/> .
 @base <http://example.com> .
 
-:UnilateralTerminationAgreement a odrl:Agreement ;
+:Agreement a odrl:Agreement ;
     dcterms:title "Agreement with an agreement termination term" ;
     :policyGraph {
         :permissionTerminateTerms a odrl:Permission ;
@@ -12,4 +12,6 @@
             odrl:assignee :provider ;
             odrl:action tosl:terminate;
             odrl:target :agreement .
+
+        :provider a tosl:Provider .
     } .

@@ -4,7 +4,7 @@
 @prefix tosl: <https://w3id.org/tosl/> .
 @base <http://example.com> .
 
-:ContractByUsingAgreement a odrl:Agreement ;
+:Agreement a odrl:Agreement ;
     dcterms:title "Agreement without explicit consent requirement" ;
     :policyGraph {
         :DutyImplicitConsent a odrl:Duty ;

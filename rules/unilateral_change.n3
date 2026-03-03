@@ -16,11 +16,10 @@
   ?G log:includes {
       ?perm a odrl:Permission ;
       odrl:assignee ?p ;
-      odrl:action tosl:remove ;
+      odrl:action odrl:modify ;
       odrl:target ?a .
 
       ?p a tosl:Provider .
-      ?a a tosl:UserContent .
   } .
 
   ?G log:notIncludes {
@@ -31,49 +30,59 @@
 
   ?G log:notIncludes {
     ?perm odrl:constraint [
-      odrl:leftOperand tosl:justification
+        odrl:leftOperand tosl:justification
     ] .
   } .
 
   ?G log:notIncludes {
     ?perm odrl:duty [
-      odrl:action odrl:inform
+        odrl:action odrl:inform
     ] .
   } .
 
-  ( "Risk: data removal is permitted without restrictions (no justification constraint, no prior notice constraint, and no duty to inform). Permission: %s"
+  ?G log:notIncludes {
+    ?perm odrl:constraint[
+        odrl:leftOperand tosl:consentType;
+        odrl:operator odrl:eq ;
+        odrl:rightOperand tosl:implicitConsent
+    ] .
+  } .
+
+  ( "Risk: agreement or services change is permitted without restrictions (no justification constraint, no prior notice constraint, no duty to inform and not reaffirm consent). Permission: %s"
     ?perm ) string:format ?why .
 
   ( ?agreement :UnfairContractClause ?perm ) log:skolem ?src .
-  ( ?agreement :RiskDataDeletion ?perm ) log:skolem ?risk .
+  ( ?agreement :RiskAgreementOrServicesChange ?perm ) log:skolem ?risk .
 
   ( ?risk :MitigationDelayPeriod ?perm ) log:skolem ?mDelay .
   ( ?risk :MitigationJustification ?perm ) log:skolem ?mJust .
   ( ?risk :MitigationDutyToInform ?perm ) log:skolem ?mInform .
+  ( ?risk :MitigationExplicitConsent ?perm ) log:skolem ?mConsent .
+
 }
 =>
 {
 
-  ?src a new:ContentRemovalClause ;
+ ?src a new:UnilateralChangeClause ;
     dpv:hasContractualClause ?perm .
 
   ?risk a dpv:Risk ;
-    skos:broader risk:DataUnavailable, risk:ServiceTermination ;
+    skos:broader risk:Harm, risk:ServiceCostIncreased, risk:ServicePartiallyProvided  ;
     dpv:hasRiskSource ?src ;
     dct:description ?why .
 
   ?risk dpv:hasConsequence [
-     a risk:DataLoss, risk:ServiceNotProvided ;
+     a risk:QualityDegraded, risk:ServiceQualityReduced, risk:ServiceProvisionDelayed ;
      dpv:hasImpact risk:FinancialLoss, risk:NonMaterialDamage, risk:CustomerConfidenceLoss ;
-     dpv:isMitigatedByMeasure new:DeletionNotice, new:ProvideJustification
+     dpv:isMitigatedByMeasure new:ChangeNotice, new:ProvideJustification, new:ReaffirmConsent
   ] .
 
-  new:ContentRemovalClause a new:UnfairContractClause, dpv:RiskConcept, risk:PotentialRiskSource, risk:PotentialRisk ;
+  new:UnilateralChangeClause a new:UnfairContractClause, dpv:RiskConcept, risk:PotentialRiskSource, risk:PotentialRisk ;
       skos:broader risk:OrganisationalManagementRisk .
 
   ?perm a dpv:Permission .
 
-  new:DeletionNotice a dpv:OrganisationalMeasure, dpv:RiskMitigationMeasure ;
+  new:ChangeNotice a dpv:OrganisationalMeasure, dpv:RiskMitigationMeasure ;
     skos:broader dpv:Notice ;
     :suggestAdd {
       ?perm 
@@ -87,7 +96,7 @@
           a odrl:Duty ;
           odrl:assignee :provider ;
           odrl:action odrl:inform ;
-          odrl:target :userData ;
+          odrl:target :pricing ;
           odrl:informedParty :customer ;
           odrl:constraint [
             a odrl:Constraint ;
@@ -98,6 +107,17 @@
         ] .
     } .
 
+  new:ReaffirmConsent a dpv:RiskMitigationMeasure ;
+    :suggestAdd {
+      ?perm 
+        odrl:constraint [
+          a odrl:Constraint ;
+          odrl:leftOperand tosl:consentType;
+          odrl:operator odrl:eq ;
+          odrl:rightOperand tosl:implicitConsent
+        ] .
+    } .
+
   new:ProvideJustification a dpv:RiskMitigationMeasure ;
     :suggestAdd {
       ?perm 
@@ -105,7 +125,7 @@
           a odrl:Constraint ;
           odrl:leftOperand tosl:justification ;
           odrl:operator odrl:isAnyOf ;
-          odrl:rightOperand ( "termviolation" "serviceprotection" "fraudprevention" )
+          odrl:rightOperand ( "lawchange" "update" )
         ] .
     } .
 

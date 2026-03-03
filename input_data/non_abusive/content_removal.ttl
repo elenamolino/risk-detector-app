@@ -6,6 +6,10 @@
 @base <http://example.com> .
 
 :Agreement :policyGraph {
+    :provider a tosl:Provider .
+    
+    :userData a tosl:UserContent .
+
     :PermissionDeleteUserAccount a odrl:Permission ;
     dcterms:description "Provider can delete your account with at least 30 days of prior notice and with reasons" ;
     odrl:assignee :provider ;
