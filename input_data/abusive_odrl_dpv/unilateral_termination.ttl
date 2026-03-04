@@ -10,17 +10,13 @@
 @base <http://example.com> .
 
 :Agreement a odrl:Agreement ;
-    dcterms:title "Agreement with a user data removal term" ;
+    dcterms:title "Agreement with an agreement termination term" ;
     :policyGraph {
-        :PermissionDeleteUserData a odrl:Permission ;
-            dcterms:description "Provider can delete your data without prior notice and without a reason" ;
+        :permissionTerminateTerms a odrl:Permission ;
+            dcterms:description "Provider can terminate the agreement at their discretion";
             odrl:assignee :provider ;
-            odrl:action dpv-odrl:Remove ;
-            odrl:target :userData .
+            odrl:action dpv-odrl:TerminateContract	;
+            odrl:target :agreement .
 
         :provider a dpv:ServiceProvider .
-        :userData [
-            a dpv:PersonalData ;
-            skos:broader pd:EmailAddress 
-        ] .
     } .

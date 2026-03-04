@@ -10,13 +10,13 @@
 @base <http://example.com> .
 
 :Agreement a odrl:Agreement ;
-    dcterms:title "Agreement with a pricing modification term" ;
+    dcterms:title "Agreement with an agreement termination term" ;
     :policyGraph {
-        :permissionChangePricing a odrl:Permission ;
-            dcterms:description "Provider may change prices from time to time.";
+        :permissionTerminateTerms a odrl:Permission ;
+            dcterms:description "Provider can terminate the agreement at their discretion";
             odrl:assignee :provider ;
-            odrl:action odrl:modify;
-            odrl:target :pricing ;
+            odrl:action dpv-odrl:TerminateContract ;
+            odrl:target :agreement ;
             odrl:constraint [
                 a odrl:Constraint ;
                 odrl:leftOperand odrl:delayPeriod ;
@@ -28,35 +28,32 @@
                 odrl:leftOperand dpv:hasJustification ; # or dpv:Justification
                 odrl:operator odrl:isAnyOf ;
                 odrl:rightOperand (
-                    justifications:LegalObligation # ServiceUpdate and ImproveFeatures
+                    justifications:SecurityImpaired
+                    justifications:UnlawfulActivityObjection
+                    justifications:LegalObligation
                 )
             ] ;
-            odrl:constraint [
-                a odrl:Constraint ;
-                odrl:leftOperand dpv:hasConsentStatus ; # or dpv:ConsentStatus
-                odrl:operator odrl:eq ;
-                odrl:rightOperand dpv:ConsentGiven
-            ] ;
             odrl:duty [
                 a odrl:Duty ;
-                odrl:action dpv-odrl:ReaffirmConsent ;
-                odrl:assignee :customer ;
-                odrl:target :pricing
-            ] .
-            odrl:duty [
-                a odrl:Duty ;
-                odrl:action odrl:inform ;
                 odrl:assignee :provider ;
-                odrl:target :pricing ;
+                odrl:action odrl:inform ;
+                odrl:target :agreement ;
                 odrl:informedParty :customer ;
                 odrl:constraint [
                     a odrl:Constraint ;
                     odrl:leftOperand odrl:deliveryChannel ;
                     odrl:operator odrl:isAnyOf ;
                     odrl:rightOperand ( "email"^^xsd:string "inProductNotification"^^xsd:string )
-                ] ;
-            ] .   
-        
+                ]
+            ] ;
+             odrl:duty [
+                a odrl:Duty ;
+                odrl:assignee :provider ;
+                odrl:action odrl:compensate ;
+                odrl:target :agreement ;
+                odrl:informedParty :customer ;
+            ] .
+            
         :provider a dpv:ServiceProvider .
         :customer a dpv:Customer .
     } .
