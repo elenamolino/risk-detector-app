@@ -9,7 +9,7 @@
     dcterms:title "Agreement with a pricing modification term" ;
     :policyGraph {
         :permissionChangePricing a odrl:Permission ;
-            dcterms:description "Provider may change prices from time to time.";
+            dcterms:description "Provider may change prices from time to time with at least 30 days of prior notice and with reasons.";
             odrl:assignee :provider ;
             odrl:action odrl:modify;
             odrl:target :pricing ;

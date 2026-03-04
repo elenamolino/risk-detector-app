@@ -3,12 +3,18 @@
     abusive_content_removal: 'input_data/abusive/content_removal.ttl',
     abusive_unilateral_change: 'input_data/abusive/unilateral_change.ttl',
     abusive_unilateral_termination: 'input_data/abusive/unilateral_termination.ttl',
+    abusive_contract_by_using: 'input_data/abusive/contract_by_using.ttl',
     non_abusive_content_removal: 'input_data/non_abusive/content_removal.ttl',
     non_abusive_unilateral_change: 'input_data/non_abusive/unilateral_change.ttl',
     non_abusive_unilateral_termination: 'input_data/non_abusive/unilateral_termination.ttl',
+    non_abusive_contract_by_using: 'input_data/non_abusive/contract_by_using.ttl'
   };
 
-  const RULE_FILES = ['rules/content_removal.n3', 'rules/unilateral_change.n3', 'rules/unilateral_termination.n3'];
+  const RULE_FILES = ['rules/content_removal.n3', 
+    'rules/unilateral_change.n3', 
+    'rules/unilateral_termination.n3',
+    'rules/contract_by_using.n3'
+  ];
 
   async function fetchText(url) {
     const res = await fetch(url);

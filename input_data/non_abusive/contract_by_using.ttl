@@ -7,17 +7,17 @@
 :Agreement a odrl:Agreement ;
     dcterms:title "Agreement without explicit consent requirement" ;
     :policyGraph {
-        :DutyImplicitConsent a odrl:Duty ;
-            dcterms:description "You confirm that you accept these Terms when you use the Services.";
+        :DutyExplicitConsent a odrl:Duty ;
+            dcterms:description "You agree to these terms by providing explicit consent";
             odrl:assignee :customer ;
             odrl:action tosl:consent ;
             odrl:target :agreement ;
             odrl:constraint [
-                    a odrl:Constraint;
-                    odrl:leftOperand tosl:consentType ;
-                    odrl:operator odrl:eq ;
-                    odrl:rightOperand tosl:implicitConsent
+                a odrl:Constraint;
+                odrl:leftOperand tosl:consentType ;
+                odrl:operator odrl:eq ;
+                odrl:rightOperand tosl:explicitConsent
             ] .
-            
+        
         :customer a tosl:Customer .
     } .
