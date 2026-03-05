@@ -5,7 +5,7 @@
 @base <http://example.com> .
 
 :Agreement a odrl:Agreement ;
-    dcterms:title "Agreement without litigation process and arbitration obligatory" ;
+    dcterms:title "Agreement with litigation process and arbitration obligatory" ;
     tosl:onDispute :litigation ;
     :policyGraph {
         :litigation a tosl:Litigation;

@@ -5,20 +5,20 @@
 @base <http://example.com> .
 
 :Agreement a odrl:Agreement ;
-    dcterms:title "Agreement with jurisdiction in Dublin courts" ;
+    dcterms:title "Agreement with jurisdiction in the consumer's country courts" ;
     tosl:onDispute :JurisdictionLitigation ;
     :policyGraph {
         :JurisdictionLitigation a tosl:Litigation;
-            dcterms:description "If Customer's principal office is European Union Agreement will be governed by the laws of Ireland" ;
+            dcterms:description "If the Customer's principal office is located within the European Union, this Agreement will be governed by the laws of the Customer's country and disputes will be resolved in the Customer's country courts." ;
             tosl:targetParty :customer ;
-            tosl:takesPlaceIn :DublinCourts ;
-            tosl:governedBy :IrelandLaw ;
+            tosl:takesPlaceIn tosl:consumerPlaceCourts ;
+            tosl:governedBy tosl:consumerPlaceLaw ;
             tosl:condition [
                 a odrl:Constraint ;
                 odrl:leftOperand tosl:consumerResidentCountry ;
                 odrl:operator odrl:isAnyOf ;
                 odrl:rightOperand ("AT" "BE" "BG" "HR" "CY" "CZ" "DK" "EE" "FI" "FR" "DE" "GR" "HU" "IS" "IE" "IT" "LV" "LI" "LT" "LU" "MT" "NL" "NO" "PL" "PT" "RO" "SK" "SI" "ES" "SE" "CH") ;
             ] .
-            
+        
         :customer a tosl:Customer .
     } .

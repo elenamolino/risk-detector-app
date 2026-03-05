@@ -5,14 +5,14 @@
 @base <http://example.com> .
 
 :Agreement a odrl:Agreement ;
-    dcterms:title "Agreement with litigation process governed by netherlandsLaw" ;
+    dcterms:title "Agreement with litigation process governed by consumer's country law" ;
     tosl:onDispute :ChoiceLawLitigation ;
     :policyGraph {
         :ChoiceLawLitigation a tosl:Litigation;
-            dcterms:description "This Agreement will be governed by the laws of The Netherlands, and the parties consent to the exclusive jurisdiction of its courts for any related actions.";    
+            dcterms:description "This Agreement will be governed by the laws of the consumer's country, and the parties consent to the exclusive jurisdiction of its courts for any related actions.";    
             tosl:targetParty :customer ;
-            tosl:takesPlaceIn :netherlandsCourts ;
-            tosl:governedBy :netherlandsLaw .
+            tosl:takesPlaceIn tosl:consumerPlaceCourts ;
+            tosl:governedBy tosl:consumerPlaceLaw .
 
         :customer a tosl:Customer .
     } .
